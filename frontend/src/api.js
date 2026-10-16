@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://192.168.20.180:5000';
+const API_URL = import.meta.env.VITE_API_URL
 
 export function apiUrl(path) {
     if (/^https?:\/\//i.test(path)) return path;
