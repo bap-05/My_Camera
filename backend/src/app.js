@@ -14,7 +14,21 @@ function createApp({ users, imageHistory, videoHistory }) {
         .map((origin) => origin.trim())
         .filter(Boolean);
     app.use(cors({
-        origin: allowedOrigins.length > 0 ? allowedOrigins : true,
+        origin: (origin, callback) => {
+            // Native Capacitor WebView uses localhost as its origin.
+            const isCapacitorOrigin = !origin ||
+                origin === 'http://localhost' ||
+                origin === 'https://localhost' ||
+                origin === 'capacitor://localhost';
+            const isConfiguredOrigin = allowedOrigins.includes(origin);
+
+            if (allowedOrigins.length === 0 || isCapacitorOrigin || isConfiguredOrigin) {
+                callback(null, true);
+                return;
+            }
+
+            callback(new Error(`Origin không được phép: ${origin}`));
+        },
     }));
     app.use(express.json({ limit: '50mb' }));
     app.use('/uploads', express.static(config.uploadDir));
