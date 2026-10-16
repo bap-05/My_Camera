@@ -9,6 +9,7 @@ function createApp({ users, imageHistory, videoHistory }) {
     fs.mkdirSync(config.uploadDir, { recursive: true });
 
     const app = express();
+    app.set('trust proxy', 1);
     const allowedOrigins = (process.env.FRONTEND_URL || '')
         .split(',')
         .map((origin) => origin.trim())
