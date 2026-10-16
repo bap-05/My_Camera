@@ -1,0 +1,10 @@
+{
+  "appId": "com.example.cameraapp",
+  "appName": "My Camera",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  }
+}
